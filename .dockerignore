@@ -1,0 +1,17 @@
+node_modules
+.git
+.agents
+.aws
+.codex
+.env
+.env.*
+!.env.example
+dist
+build
+.cache
+.tmp
+backups
+*.log
+website
+tests
+*-preview.jpg

@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_product_downloads",
+  "info": { "displayName": "下载版本", "description": "上传文件或填写外部下载链接" },
+  "attributes": {
+    "label": { "type": "string", "required": true },
+    "platform": { "type": "string", "required": true },
+    "version": { "type": "string", "required": true },
+    "file": { "type": "media", "multiple": false, "allowedTypes": ["files"] },
+    "externalUrl": { "type": "string", "regex": "^https?://.+" },
+    "notes": { "type": "text" },
+    "checksum": { "type": "string" }
+  }
+}

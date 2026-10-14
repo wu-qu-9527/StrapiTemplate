@@ -1,0 +1,5 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="产品下载" description="获取产品最新版本、安装文件与使用说明。"><section class="wrap downloads-page"><div class="section-label">DOWNLOAD CENTER / 下载中心</div><h1>好产品，<br/>从这里开始。</h1><p class="page-intro">选择产品，获取适合你设备的版本和安装说明。</p><div id="download-root" data-mode="center" aria-live="polite"><p class="loading">正在获取可下载产品…</p></div><noscript><p>请启用 JavaScript，以访问后台 API 获取最新下载信息。</p></noscript></section></Layout>
+<script src="../../scripts/downloads.ts"></script>

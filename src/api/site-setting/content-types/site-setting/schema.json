@@ -1,0 +1,48 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_settings",
+  "info": {
+    "singularName": "site-setting",
+    "pluralName": "site-settings",
+    "displayName": "首页与网站设置",
+    "description": "修改首页 slogan、品牌介绍与联系方式"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "brandName": {
+      "type": "string",
+      "required": true
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "slogan": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "aboutTitle": {
+      "type": "string"
+    },
+    "aboutText": {
+      "type": "text"
+    },
+    "contactEmail": {
+      "type": "email"
+    },
+    "address": {
+      "type": "string"
+    }
+  }
+}

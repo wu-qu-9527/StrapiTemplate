@@ -1,0 +1,8 @@
+{
+  "name": "strapi-astro-website",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "astro build", "dev": "astro dev --host 0.0.0.0", "start": "node scripts/builder.mjs" },
+  "dependencies": { "astro": "7.3.8" },
+  "engines": { "node": ">=22.12.0" }
+}

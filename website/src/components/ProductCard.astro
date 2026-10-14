@@ -1,0 +1,5 @@
+---
+import { productUrl, downloadsUrl, safeUrl } from '../lib/content';
+const { product, index = 0 } = Astro.props;
+---
+<article class="product-card"><div class="product-visual">{safeUrl(product.cover?.url, true) ? <img src={safeUrl(product.cover.url, true)} alt={product.cover.alternativeText || product.title} loading="lazy"/> : <><span class="product-index">PRODUCT / {String(index + 1).padStart(2, '0')}</span><span class="product-symbol" aria-hidden="true">◈</span><span class="product-mark">{product.title}</span></>}</div><div class="product-copy">{product.version && <span class="section-label">{product.version}</span>}<h3>{product.title}</h3>{product.tagline && <p class="product-tagline">{product.tagline}</p>}<p class="product-summary">{product.summary}</p>{product.pricing && <span class="product-pricing">{product.pricing}</span>}<div class="product-actions"><a class="text-link" href={productUrl(product.slug)}>了解产品 ↗</a><a class="text-link" href={downloadsUrl(product.slug)}>产品下载 ↓</a></div></div></article>

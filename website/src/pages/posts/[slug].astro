@@ -1,0 +1,7 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { content, blocks, safeUrl } from '../../lib/content';
+export function getStaticPaths() { return content.posts.map((entry: any) => ({ params: { slug: entry.slug }, props: { entry } })); }
+const { entry } = Astro.props;
+---
+<Layout title={entry.title} description={entry.summary}><article class="wrap detail-page"><a class="text-link" href="/#stories">← 返回最新动态</a><div class="detail-heading"><div class="section-label">{entry.category} / STORY</div><h1>{entry.title}</h1><p class="detail-summary">{entry.summary}</p><time class="detail-meta">{new Date(entry.publishedAt).toLocaleDateString('zh-CN',{timeZone:'Asia/Shanghai'})}</time></div>{safeUrl(entry.cover?.url,true) && <img class="detail-cover" src={safeUrl(entry.cover.url,true)} alt={entry.cover.alternativeText || entry.title}/>}<div class="detail-body" set:html={blocks(entry.body)}/></article></Layout>

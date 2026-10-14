@@ -1,0 +1,90 @@
+name: strapi
+services:
+  postgres:
+    image: postgres:17-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: strapi
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD in .env}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U strapi -d strapi"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [backend]
+
+  strapi:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 1337
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: strapi
+      DATABASE_USERNAME: strapi
+      DATABASE_SSL: "false"
+      STRAPI_TELEMETRY_DISABLED: "true"
+      SITE_BUILDER_URL: http://site-builder:4322
+    ports:
+      - "127.0.0.1:${STRAPI_PORT:-1337}:1337"
+    volumes:
+      - uploads:/opt/app/public/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:1337/_health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 20s
+      timeout: 5s
+      start_period: 60s
+      retries: 5
+    networks: [backend]
+
+  website:
+    build: ./website
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${WEBSITE_PORT:-8080}:80"
+    depends_on:
+      site-builder:
+        condition: service_healthy
+    volumes:
+      - site_output:/site:ro
+    networks: [backend]
+
+  site-builder:
+    build:
+      context: ./website
+      dockerfile: Dockerfile.builder
+    restart: unless-stopped
+    environment:
+      STRAPI_URL: http://strapi:1337
+      SITE_BUILD_TOKEN: ${SITE_BUILD_TOKEN:?Set SITE_BUILD_TOKEN in .env}
+      ASTRO_TELEMETRY_DISABLED: "1"
+    volumes:
+      - site_output:/site
+    depends_on:
+      strapi:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4322/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      start_period: 90s
+      retries: 5
+    networks: [backend]
+
+volumes:
+  site_output:
+  postgres_data:
+  uploads:
+
+networks:
+  backend:

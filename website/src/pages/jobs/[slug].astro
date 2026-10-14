@@ -1,0 +1,7 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { content, blocks } from '../../lib/content';
+export function getStaticPaths() { return content.jobs.map((entry: any) => ({ params: { slug: entry.slug }, props: { entry } })); }
+const { entry } = Astro.props;
+---
+<Layout title={entry.title} description={entry.summary}><article class="wrap detail-page"><a class="text-link" href="/#careers">← 返回招聘列表</a><div class="detail-heading"><div class="section-label">加入我们 / CAREERS</div><h1>{entry.title}</h1><div class="detail-meta">{[entry.department,entry.location,entry.employmentType].join(' · ')}</div><p class="detail-summary">{entry.summary}</p></div><div class="detail-body" set:html={blocks(entry.description)}/>{entry.applicationEmail && <a class="button dark apply-link" href={`mailto:${entry.applicationEmail}?subject=${encodeURIComponent('应聘：'+entry.title)}`}>发送简历 ↗</a>}</article></Layout>

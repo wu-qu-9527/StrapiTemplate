@@ -1,0 +1,78 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "产品发布",
+    "description": "填写产品资料，保存草稿并发布到宣传站"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "text",
+      "required": true
+    },
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "highlights": {
+      "type": "text"
+    },
+    "description": {
+      "type": "blocks",
+      "required": true
+    },
+    "version": {
+      "type": "string"
+    },
+    "releaseDate": {
+      "type": "date"
+    },
+    "pricing": {
+      "type": "string"
+    },
+    "ctaLabel": {
+      "type": "string",
+      "default": "咨询产品"
+    },
+    "ctaUrl": {
+      "type": "string",
+      "regex": "^(https?://|mailto:).+"
+    },
+    "sortOrder": {
+      "type": "integer",
+      "default": 0
+    },
+    "downloads": {
+      "type": "component",
+      "repeatable": true,
+      "component": "product.download"
+    }
+  }
+}

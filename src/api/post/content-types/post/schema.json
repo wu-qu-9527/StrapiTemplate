@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "posts",
+  "info": {
+    "singularName": "post",
+    "pluralName": "posts",
+    "displayName": "推广帖子",
+    "description": "发布公司动态、推广文章与活动资讯"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "category": {
+      "type": "string",
+      "required": true,
+      "default": "公司动态",
+      "regex": "^(公司动态|产品资讯|活动推广)$"
+    },
+    "summary": {
+      "type": "text",
+      "required": true
+    },
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "body": {
+      "type": "blocks",
+      "required": true
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

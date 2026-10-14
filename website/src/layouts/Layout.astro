@@ -1,0 +1,7 @@
+---
+import { brand, home } from '../lib/content';
+const { title, description = '了解品牌、产品、最新动态与招聘岗位。' } = Astro.props;
+---
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="description" content={description}/><meta name="theme-color" content="#f5f4ec"/><title>{title ? `${title} · ${brand}` : `${brand} · 向新而行`}</title><link rel="stylesheet" href="/style.css"/></head>
+<body><a class="skip" href="#main">跳至主要内容</a><header class="header"><a class="brand" href="/" aria-label="返回首页"><span class="brand-icon" aria-hidden="true">↗</span><span>{brand}</span></a><nav aria-label="主导航"><a href="/#about">关于我们</a><a href="/#product-list">产品发布</a><a href="/downloads/">产品下载</a><a href="/#stories">最新动态</a><a href="/#careers">加入我们</a></nav><a class="header-contact" href="/#contact">联系 ↗</a></header><main id="main"><slot/></main><footer class="wrap"><a class="brand" href="/"><span class="brand-icon" aria-hidden="true">↗</span><span>{brand}</span></a><span>© {new Date().getFullYear()} {brand} · 示例宣传站</span><a href="/admin" target="_blank" rel="noopener">运营后台 ↗</a></footer></body></html>
