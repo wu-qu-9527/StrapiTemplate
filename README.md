@@ -1,5 +1,7 @@
 # Strapi 服务
 
+本项目由 Codex 生成，包含 Strapi 内容管理后台、Astro 静态宣传站、产品下载 API 和 Docker Compose 部署配置。
+
 此目录部署 Strapi 5.58.0、Node.js 22 和 PostgreSQL 17，使用 Docker Compose 以生产模式运行。
 
 ## 访问
